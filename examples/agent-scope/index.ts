@@ -24,6 +24,7 @@ export function createScopedExtension({ agentDir }: { agentDir: string }): Exten
         if (params.action === "create") {
           if (params.text === undefined) throw new Error("create 需要 text");
           await mkdir(directory, { recursive: true, mode: 0o700 });
+          // wx 防覆盖，但失败或取消可能在最终路径留下不完整文件。
           await writeFile(file, params.text, { flag: "wx", mode: 0o600, signal });
           value = params.text;
         } else if (params.action === "delete") {

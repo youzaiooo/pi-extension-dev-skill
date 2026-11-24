@@ -1,6 +1,6 @@
-# 0.1.0 候选验收记录
+# 0.1.1 验收记录
 
-本候选仅声明[兼容基线](compatibility.md)中的宿主版本。结论由文档、六个完整入口、类型检查及真实宿主行为测试共同支持；未安装或发布。
+本版本仅声明[兼容基线](compatibility.md)中的宿主版本。结论由文档、六个完整入口、类型检查及真实宿主行为测试共同支持。0.1.1 只修正文档和注释，不改变示例行为。
 
 ## 已验证
 
@@ -24,7 +24,7 @@
 - **F：RPC 与组件。** 真实 CLI stdout 全部合法 JSONL，含 U+2028/U+2029 字符仍正确按 LF 分帧；带 ID 的命令响应、取消选择、TUI 降级、工具结果与正常退出通过。组件级检查覆盖宽度 0/1/4/12/80、中文、Enter/Escape 序列，以及幂等 dispose 后定时器停止。
 - **G：包与导航。** fixture settings 中声明本地 package，真实资源发现只提供本 Skill，零扩展/模板/主题。工作副本与真实归档内的本地链接全部存在；包不包含 node_modules、配置或测试运行产物。
 
-[测试说明](../tests/README.md)列出驱动入口与产物位置。每次运行创建独立的 `.test-work/run-*` 并保留 `results.tap`、RPC JSONL/stderr 和导航计数；汇总日志为 `.test-work/check.log`、`.test-work/installed-host-check.log`。打包清单和完整性摘要在 `.test-work/pack/manifest.json`，候选为 `.test-work/pack/pi-extension-dev-skill-0.1.0.tgz`。这些是被 Git 忽略的本地产物。
+[测试说明](../tests/README.md)列出驱动入口与产物位置。每次运行创建独立的 `.test-work/run-*` 并保留 `results.tap`、RPC JSONL/stderr 和导航计数；汇总日志为 `.test-work/check.log`、`.test-work/installed-host-check.log`。打包清单和完整性摘要在 `.test-work/pack/manifest.json`，本版本归档为 `.test-work/pack/pi-extension-dev-skill-0.1.1.tgz`。这些是被 Git 忽略的本地产物。
 
 测试采用空内存凭据存储或全新 CLI agentDir、受控假 provider 和网络阻断，不请求真实模型。SDK 和包发现测试显式设置并断言 `cacheWarming: "off"`、`defaultProjectTrust: "never"` 生效。没有改现有 agent 配置、启动器、状态库、宿主包或其它仓库。
 
@@ -41,5 +41,3 @@ Context 分层、会话替换后旧对象失效、底层 compact 参数顺序、
 - 真实模型、摘要质量、自动上下文溢出恢复、Provider/OAuth。
 - pi-subagents/pi-memory 完整联调；没有启动子代理或访问真实记忆库。
 - OS 权限隔离、跨进程文件锁、崩溃事务、符号链接对抗；私有笔记仅为有界单文件教学存储。
-
-本候选在独立 Git 仓库中供审查；远程推送、发布、打标签与安装不属于本次交付。

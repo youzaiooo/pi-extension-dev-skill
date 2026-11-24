@@ -61,7 +61,7 @@ export default function notesExample(pi: ExtensionAPI): void {
       } else if (params.action === "clear") next = defaults();
       if (params.action !== "list") {
         pi.appendEntry(STATE_TYPE, structuredClone(next));
-        state = next; // 持久化成功后才接受新的工作状态。
+        state = next; // 追加会话记录成功后才更新工作状态；不保证落盘。
       }
       const output = truncateHead(JSON.stringify(state.items, null, 2), { maxBytes: 8192, maxLines: 100 });
       const text = output.content + (output.truncated ? "\n[文本已截断；details 保留完整快照]" : "");

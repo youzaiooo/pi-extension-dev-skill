@@ -4,7 +4,7 @@ description: 用中文开发和审查 Pi 扩展；适用于编写工具、命令
 license: MIT
 compatibility: 目标宿主与开发环境见 references/compatibility.md。
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # Pi 扩展开发

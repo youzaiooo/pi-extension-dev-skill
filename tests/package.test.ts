@@ -54,10 +54,14 @@ test("G：全部 Markdown 相对链接、显式锚点、发布文件与版本声
   }
   assert.ok(links > 20);
   const manifest = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
-  assert.equal(manifest.version, "0.1.0"); assert.deepEqual(manifest.pi.extensions, []);
+  assert.match(manifest.version, /^[0-9]+[.][0-9]+[.][0-9]+$/); assert.deepEqual(manifest.pi.extensions, []);
+  const lock = JSON.parse(await readFile(join(root, "package-lock.json"), "utf8"));
+  assert.equal(lock.version, manifest.version);
+  assert.equal(lock.packages[""].version, manifest.version);
   assert.equal(manifest.dependencies, undefined); assert.equal(manifest.scripts.postinstall, undefined);
   const skill = await readFile(join(root, "SKILL.md"), "utf8");
   assert.match(skill, /^---\nname: pi-extension-dev-skill\ndescription: /);
+  assert.equal(skill.split("\n---\n", 1)[0].match(/^  version: "([^"\n]+)"$/m)?.[1], manifest.version);
   assert.match(await readFile(join(root, "references/compatibility.md"), "utf8"), /1\.6\.0/);
   await writeFile(join(work, "navigation.json"), JSON.stringify({ markdownFiles: files.length, localLinks: links }, null, 2));
 });

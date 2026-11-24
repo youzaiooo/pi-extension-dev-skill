@@ -8,7 +8,7 @@
 
 具名入口：[固定提交树](https://github.com/Dwsy/pi-extensions-skill/tree/40a2815bb161f54e69bad973e6d6c8f23b0914b4)、[固定 MIT 许可](https://github.com/Dwsy/pi-extensions-skill/blob/40a2815bb161f54e69bad973e6d6c8f23b0914b4/LICENSE)。原 fork [youzaiooo/pi-extensions-skill](https://github.com/youzaiooo/pi-extensions-skill) 保持独立，未被本项目修改。
 
-本候选重新编写精简指南、完整示例和验收，不复制原安装脚本、模式全集或其可复制承诺。为保留历史参考和可能构成改写的主题组织之出处，[LICENSE](LICENSE) 保留 `Copyright (c) 2025 dwsy` 及完整 MIT 文本，并列本项目贡献者版权。未将先前审计会话原文、宿主凭据或本机配置纳入项目。
+本项目重新编写精简指南、完整示例和验收，不复制原安装脚本、模式全集或其可复制承诺。为保留历史参考和可能构成改写的主题组织之出处，[LICENSE](LICENSE) 保留 `Copyright (c) 2025 dwsy` 及完整 MIT 文本，并列本项目贡献者版权。未将先前审计会话原文、宿主凭据或本机配置纳入项目。
 
 ## Pi 固定版本材料
 

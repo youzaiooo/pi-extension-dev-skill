@@ -1,6 +1,6 @@
 {
   "name": "pi-extension-dev-skill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "面向 Pi 扩展开发的中文指南与可运行示例",
   "type": "module",
   "license": "MIT",
