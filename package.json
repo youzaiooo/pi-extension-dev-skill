@@ -1,0 +1,64 @@
+{
+  "name": "pi-extension-dev-skill",
+  "version": "0.1.0",
+  "description": "面向 Pi 扩展开发的中文指南与可运行示例",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "skill"
+  ],
+  "files": [
+    "SKILL.md",
+    "README.md",
+    "LICENSE",
+    "SOURCES.md",
+    "CHANGELOG.md",
+    "references/",
+    "examples/",
+    "tests/",
+    "tsconfig.json"
+  ],
+  "pi": {
+    "skills": [
+      "."
+    ],
+    "extensions": [],
+    "prompts": [],
+    "themes": []
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node tests/run.mjs",
+    "check": "npm run typecheck && npm test",
+    "pack": "node tests/pack.mjs"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
+    "typebox": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "@earendil-works/pi-tui": {
+      "optional": true
+    },
+    "typebox": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "1.6.0",
+    "@earendil-works/pi-ai": "1.6.0",
+    "@earendil-works/pi-tui": "1.6.0",
+    "@types/node": "22.19.0",
+    "typebox": "1.3.27",
+    "typescript": "5.9.3"
+  }
+}
