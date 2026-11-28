@@ -66,7 +66,9 @@ const summaryFixture: ExtensionFactory = (pi) => {
 test("A：目标包版本、全部完整扩展真实加载，命令不调用模型", async () => {
   const manifest = JSON.parse(await readFile(join(process.env.TEST_PI_ROOT!, "package.json"), "utf8"));
   assert.equal(manifest.name, "@earendil-works/pi-coding-agent");
-  assert.equal(manifest.version, "1.6.0");
+  const project = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+  assert.equal(manifest.version, project.devDependencies["@earendil-works/pi-coding-agent"],
+    "宿主版本必须与本项目锁定的开发版本一致");
   const f = await openFixture({ files: [...exampleFiles, "agent-scope/index.ts"] });
   try {
     assert.equal(f.loader.getExtensions().extensions.length, 6);

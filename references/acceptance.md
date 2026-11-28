@@ -1,6 +1,6 @@
-# 0.1.1 验收记录
+# 0.1.2 验收记录
 
-本版本仅声明[兼容基线](compatibility.md)中的宿主版本。结论由文档、六个完整入口、类型检查及真实宿主行为测试共同支持。0.1.1 只修正文档和注释，不改变示例行为。
+本版本仅声明[兼容基线](compatibility.md)中的宿主版本。结论由文档、六个完整入口、类型检查及真实宿主行为测试共同支持。0.1.2 对照 1.7.0 更新基线与文档，并把开发依赖升到 1.7.0；示例行为不变（0.1.1 只修正文档和注释）。
 
 ## 已验证
 
@@ -13,7 +13,7 @@
 | `node tests/run.mjs <installed-package-root>` | 对本机已安装的目标宿主重复全部 11 项行为验收，通过 |
 | `npm run pack` | 本地 npm 归档生成，文件清单、manifest 和归档内本地 Markdown 链接检查通过 |
 
-`<installed-package-root>` 是已安装的 `@earendil-works/pi-coding-agent@1.6.0` 包根，只读使用；具体本机定位保留在本地运行记录，不作为对外路径规范。开发依赖与已安装宿主的 config、sdk、loader、Context 类型、session manager、agent session、resource loader 七个关键文件另做 SHA-256 对照，均一致。
+`<installed-package-root>` 是已安装的 `@earendil-works/pi-coding-agent@1.7.0` 包根，只读使用；具体本机定位保留在本地运行记录，不作为对外路径规范。开发依赖与已安装宿主的 config、sdk、loader、Context 类型、session manager、agent session、resource loader 七个关键文件另做 SHA-256 对照，均一致。
 
 自动验收包含以下实际行为：
 
@@ -24,13 +24,15 @@
 - **F：RPC 与组件。** 真实 CLI stdout 全部合法 JSONL，含 U+2028/U+2029 字符仍正确按 LF 分帧；带 ID 的命令响应、取消选择、TUI 降级、工具结果与正常退出通过。组件级检查覆盖宽度 0/1/4/12/80、中文、Enter/Escape 序列，以及幂等 dispose 后定时器停止。
 - **G：包与导航。** fixture settings 中声明本地 package，真实资源发现只提供本 Skill，零扩展/模板/主题。工作副本与真实归档内的本地链接全部存在；包不包含 node_modules、配置或测试运行产物。
 
-[测试说明](../tests/README.md)列出驱动入口与产物位置。每次运行创建独立的 `.test-work/run-*` 并保留 `results.tap`、RPC JSONL/stderr 和导航计数；汇总日志为 `.test-work/check.log`、`.test-work/installed-host-check.log`。打包清单和完整性摘要在 `.test-work/pack/manifest.json`，本版本归档为 `.test-work/pack/pi-extension-dev-skill-0.1.1.tgz`。这些是被 Git 忽略的本地产物。
+[测试说明](../tests/README.md)列出驱动入口与产物位置。每次运行创建独立的 `.test-work/run-*` 并保留 `results.tap`、RPC JSONL/stderr 和导航计数；汇总日志为 `.test-work/check.log`、`.test-work/installed-host-check.log`。打包清单和完整性摘要在 `.test-work/pack/manifest.json`，本版本归档为 `.test-work/pack/pi-extension-dev-skill-0.1.2.tgz`。这些是被 Git 忽略的本地产物。
 
-测试采用空内存凭据存储或全新 CLI agentDir、受控假 provider 和网络阻断，不请求真实模型。SDK 和包发现测试显式设置并断言 `cacheWarming: "off"`、`defaultProjectTrust: "never"` 生效。没有改现有 agent 配置、启动器、状态库、宿主包或其它仓库。
+测试采用空内存凭据存储或全新 CLI agentDir、受控假 provider 和网络阻断，不请求真实模型。SDK 和包发现测试显式设置并断言 `cacheWarming: "off"`、`defaultProjectTrust: "never"` 生效。测试 A 不再硬编码宿主版本，而是与 `package.json` 锁定的开发版本比对。没有改现有 agent 配置、启动器、状态库、宿主包或其它仓库。
 
 ## 静态判断
 
 Context 分层、会话替换后旧对象失效、底层 compact 参数顺序、loader 兼容别名、进程内文件队列等结论按目标包文档、声明和实现核对。会话替换流程没有另做完整运行测试，不能将类型核对解释为交互验收。
+
+1.7.0 新增的事实同样是静态核对：`--agent-dir` 的写入实现（`dist/cli/agent-dir-arg.js`）与 `getAgentDir()`、`usesDefaultAgentDir()`（`dist/config.js`）、`notices` 设置分组（`dist/core/settings-schema.d.ts`、`settings-manager.d.ts`）、对话框 `blockedKind` 与 `after_provider_response` 语义（`dist/core/extensions/types.d.ts`、`docs/extensions.md`）、图像 `aspectRatio`/`size`（pi-ai `dist/types.d.ts`）。另在本机 1.7.0 上实测了 `--agent-dir` 与 `PI_CODING_AGENT_DIR` 两种启动方式得到同一目录，但没有测试真实终端的阻塞状态显示或“一次请求多次响应”下的重试行为。
 
 只读核对了 pi-subagents 与 pi-memory 固定补丁的 manifest/路径入口，包与示例没有替代它们的工具或默认数据存储。这是边界检查，不是完整联调。
 

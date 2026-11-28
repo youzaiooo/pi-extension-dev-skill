@@ -4,12 +4,12 @@ description: 用中文开发和审查 Pi 扩展；适用于编写工具、命令
 license: MIT
 compatibility: 目标宿主与开发环境见 references/compatibility.md。
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
 ---
 
 # Pi 扩展开发
 
-先读[兼容基线](references/compatibility.md)，核对实际包名和版本。遇到未实测版本，先查其随包文档、声明和实现，记录差异后验收；不套用其它版本的结论。
+先读[兼容基线](references/compatibility.md)，核对实际包名和版本。遇到未实测版本，先查其随包文档、声明和实现，记录差异后验收；不套用其它版本的结论。从 1.6.x 迁移过来的代码，先过一遍基线里的[从 1.6.0 迁移](references/compatibility.md#migrate-160)。
 
 开发时依次确认：
 

@@ -31,6 +31,8 @@
 
 这是普通成功运行的概念顺序，不是全部异常和中断路径。工具调用顺序为 tool_execution_start、tool_call、执行与 update、tool_result、tool_execution_end。参数无效、被阻止、取消等情况可能跳过执行和 tool_result；tool_execution_end 能观察每个已完成调用。默认工具可并行执行；共享可变状态的示例声明 `executionMode: "sequential"`。
 
+Provider 相关 hooks 的顺序是 context → context_with_system → before_provider_headers → before_provider_request → after_provider_response → provider_stream_event 与 message_*。1.7.0 起 `after_provider_response` 对每个 HTTP 响应触发：错误响应和重试的响应也会触发，一次请求可多次；SSE 流内错误与 WebSocket 传输不触发。处理器要幂等，不要把它当成“一次模型请求一次”。
+
 会话启动原因在 session_start.reason 中：startup、reload、new、resume、fork；分支导航使用 session_tree；压缩结果使用 session_compact 或 session_compact_failed。不要凭空注册 session_switch / session_fork 事件。
 
 ## 参数拦截、失败与取消
@@ -48,3 +50,10 @@
 文本工具的空白输入属于可预期失败；等待期间取消由 abort-aware timer 抛出，宿主报告为失败，不伪装成功。异常和已发生的副作用不能仅靠 abort 回滚。普通事件中的 ctx.signal 可能为 undefined，特别是空闲命令与 session 事件。
 
 扩展可以直接访问进程权限允许的资源。激活工具列表只控制工具暴露和调用策略，不能证明所有代码只读；尤其 codemode/deferred 工具有自己的可达规则。不要用 shell 第一词白名单或字符串路径片段做“安全命令”保证。
+
+## 对话框与设置
+
+`ctx.ui.confirm()` / `select()` / `input()` 可传 `blockedKind`（`permission` / `question` / `auth`），终端据此在等待期间显示 pi 的阻塞状态（OSC 7501）；默认值分别是 `permission` 与 `question`。不传也能跑，只是状态含义由宿主猜测。
+
+读写设置优先用现成方法：1.7.0 把“是否显示缓存未命中提示”合并成 `notices` 分组，用 `getNotices()` / `setNotice(key, shown)`；旧的单键方法与 `enableInstallTelemetry` 已移除。若扩展自己写 `settings.json`，只写自己拥有的键，并在重新读取后确认规范化结果。
+

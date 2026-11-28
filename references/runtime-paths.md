@@ -17,6 +17,8 @@
 
 CLI 入口调用官方 getter，它每次读取当前进程环境；环境变量未配置或为空时默认 HOME 下的 `.pi/agent`。不要把某个操作者的目录写进扩展。
 
+1.7.0 起 `pi --agent-dir <dir>` 是 `PI_CODING_AGENT_DIR` 的命令行形式，优先级最高，并在启动时把该变量设成绝对路径（子命令、子进程同样生效）。因此扩展只需调用 `getAgentDir()`，不要自己解析 argv。代价是生效时机：`main()` 应用 flag 之前，模块加载期读到的仍是默认目录，且若缓存在模块级就会被固定住——所以模块顶层只放纯函数、schema 和类型。`usesDefaultAgentDir()` 可判断当前目录是否已离开 `~/.pi/agent`。
+
 SDK 的 `createAgentSession({ agentDir })` 不改变进程环境；扩展 Context 也不提供 `ctx.agentDir`。完整工厂见[私有笔记示例](../examples/agent-scope/index.ts)。下面是接线片段，省略了模型 runtime、settings、会话 manager、错误处理和 finally dispose；完整隔离 fixture 见 [SDK 测试](../tests/sdk.test.ts)：
 
 ```ts

@@ -1,6 +1,6 @@
 # pi-extension-dev-skill
 
-面向 Pi 扩展开发的中文指南与可运行示例，版本 **0.1.1**。唯一声明支持的 Pi 版本和开发环境集中在[兼容基线](references/compatibility.md)。
+面向 Pi 扩展开发的中文指南与可运行示例，版本 **0.1.2**。唯一声明支持的 Pi 版本和开发环境集中在[兼容基线](references/compatibility.md)。
 
 本项目独立维护。Dwsy/pi-extensions-skill 的固定版本仅作为具名历史参考，不跟随或合并其历史。首版围绕真实宿主验收重新组织文档与实现；来源和许可见 [SOURCES.md](SOURCES.md) 和 [LICENSE](LICENSE)。
 
@@ -39,7 +39,7 @@ Pi manifest 仅声明 `skills: ["."]`，其余资源显式为空；没有安装�
 确认目标 Pi 进程使用正确的 agentDir，再通过该 Agent 的启动器执行安装；下面的 `pi` 代表该启动命令。重新执行同一仓库的新标签可更新固定版本。
 
 ```sh
-pi install git:github.com/youzaiooo/pi-extension-dev-skill@v0.1.1
+pi install git:github.com/youzaiooo/pi-extension-dev-skill@v0.1.2
 ```
 
 默认安装到当前 Agent 的配置范围；要安装到可信项目范围才加 `--local`。执行 `/reload` 或启动新会话加载 Skill。本项目不提供另一个安装器。
